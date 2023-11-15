@@ -2,7 +2,7 @@ import sys
 
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
-
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 if len(sys.argv) < 2:
   sys.exit("Please supply a hostname to fetch.")
@@ -15,11 +15,8 @@ opt.add_argument("--disable-setuid-sandbox")
 opt.add_argument("--enable-quic")
 opt.add_argument("--origin-to-force-quic-on=%s" % hostname)
 
-
 # remote driver
-driver = webdriver.Remote(
-  desired_capabilities=opt.to_capabilities(),
-  command_executor="http://localhost:4444/wd/hub") 
+driver = webdriver.Remote("http://localhost:4444/wd/hub", options=opt) 
 
 # driver = webdriver.Chrome()
 
